@@ -1,0 +1,23 @@
+﻿@page "/counter"
+@using WO.Hub.Contract
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    [Inject]
+    public IGreeterService GreeterService { get; set; }
+    private int currentCount = 0;
+
+    private async void IncrementCount()
+    {
+        currentCount++;
+        var result = await GreeterService.SayHello(new HelloRequest { Name = "Erik"});
+    }
+
+}

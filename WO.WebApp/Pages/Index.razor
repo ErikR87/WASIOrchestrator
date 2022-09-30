@@ -1,0 +1,22 @@
+﻿@page "/"
+@using WO.Hub.Contract
+@inject IOrchestrator orchestrator;
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<button class="accordion-button" onclick="handleButtonClick">Test</button>
+
+@code {
+    private async Task handleButtonClick() {
+        /*var result = await orchestrator.ApplyAsync(new Hub.Contract.ApplyRequest
+        {
+            Method = ""
+        });*/
+    }
+}
