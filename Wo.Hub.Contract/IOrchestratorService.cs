@@ -4,7 +4,7 @@ using WO.Hub.Contract;
 namespace WO.Hub.Contract;
 
 [ServiceContract]
-public interface IOrchestrator
+public interface IOrchestratorService
 {
-    public ValueTask ApplyAsync(ApplyRequest request);
+    public ValueTask<Result> ApplyAsync(ApplyRequest request);
 }

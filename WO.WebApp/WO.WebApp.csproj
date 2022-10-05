@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0-rc.1.22427.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="7.0.0-rc.1.22427.2" />
     <PackageReference Include="protobuf-net.Grpc.ClientFactory" Version="1.0.177" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.5.03" />
   </ItemGroup>
 
   <ItemGroup>

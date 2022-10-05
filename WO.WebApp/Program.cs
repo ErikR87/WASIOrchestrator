@@ -1,5 +1,3 @@
-using Grpc.Net.Client;
-using Grpc.Net.Client.Web;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using ProtoBuf.Grpc.Client;
@@ -13,21 +11,14 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 GrpcClientFactory.AllowUnencryptedHttp2 = true;
 
-builder.Services.AddScoped(sp => new HttpClient { 
-    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
+builder.Services.AddScoped(sp => new HttpClient
+{
+    BaseAddress = new Uri("https://localhost:11001/")//builder.HostEnvironment.BaseAddress) 
 });
 
-builder.Services.AddScoped(services =>
+builder.Services.AddCodeFirstGrpcClient<IOrchestratorService>(o =>
 {
-    // Erstelle neuen HttpClient mit GrpcWebHandler
-    var httpClient = new HttpClient(new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
-
-    // Konfiguriere die Server URL
-    var channel = GrpcChannel.ForAddress("http://localhost:1518",
-        new GrpcChannelOptions { HttpClient = httpClient });
-
-    // Erstelle einen gRPC Service, der zur Kommunkation genutzt wird
-    return channel.CreateGrpcService<IGreeterService>();
+    o.Address = new Uri("https://localhost:11001/");
 });
 
 builder.Services.AddMsalAuthentication(options =>

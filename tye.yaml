@@ -1,0 +1,26 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: wo
+services:
+- name: wo-hub
+  project: WO.Hub/WO.Hub.csproj
+  bindings:
+    - name: https
+      protocol: https
+      port: 11001
+- name: wo-agent
+  project: WO.Agent/WO.Agent.csproj
+  bindings:
+    - name: https
+      protocol: https
+      port: 11002
+- name: wo-webapp
+  project: WO.WebApp/WO.WebApp.csproj
+  bindings:
+    - name: https
+      protocol: https
+      port: 11000

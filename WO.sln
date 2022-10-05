@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.32916.344
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WO.Hub", "WO.Hub\WO.Hub.csproj", "{72300D9E-24B4-4661-9D36-86AF90F6C8DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WO.Hub", "WO.Hub\WO.Hub.csproj", "{72300D9E-24B4-4661-9D36-86AF90F6C8DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WO.Hub.Contract", "Wo.Hub.Contract\WO.Hub.Contract.csproj", "{B7966739-3899-48D4-9585-04B59E709A47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WO.Hub.Contract", "Wo.Hub.Contract\WO.Hub.Contract.csproj", "{B7966739-3899-48D4-9585-04B59E709A47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WO.Agent", "WO.Agent\WO.Agent.csproj", "{25FC4F7A-4E22-45EE-A0B8-E9867F578656}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WO.Agent", "WO.Agent\WO.Agent.csproj", "{25FC4F7A-4E22-45EE-A0B8-E9867F578656}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WO.WebApp", "WO.WebApp\WO.WebApp.csproj", "{82EDF8B8-CDA7-401C-B21D-A71A8B012EF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WO.WebApp", "WO.WebApp\WO.WebApp.csproj", "{82EDF8B8-CDA7-401C-B21D-A71A8B012EF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{361ED4A0-BE80-4DDF-AC2B-4D34AC0FDD66}"
+	ProjectSection(SolutionItems) = preProject
+		tye.yaml = tye.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

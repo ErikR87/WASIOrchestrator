@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using WO.Hub.Contract
-@inject IOrchestrator orchestrator;
+@inject HttpClient http
 
 <PageTitle>Index</PageTitle>
 
@@ -10,13 +10,21 @@ Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
-<button class="accordion-button" onclick="handleButtonClick">Test</button>
+<button class="accordion-button" @onclick=handleButtonClick>Test</button>
 
 @code {
     private async Task handleButtonClick() {
-        /*var result = await orchestrator.ApplyAsync(new Hub.Contract.ApplyRequest
+        var request = new ApplyRequest
         {
-            Method = ""
-        });*/
+            Method = "test"
+        };
+        var response = await http.PostAsJsonAsync<ApplyRequest>("Orchestrator", request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadFromJsonAsync<Result>();
+
+            Console.WriteLine(result.Status.ToString());
+        }
     }
 }
