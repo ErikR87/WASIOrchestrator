@@ -22,9 +22,9 @@ Welcome to your new app.
 
         if (response.IsSuccessStatusCode)
         {
-            var result = await response.Content.ReadFromJsonAsync<Result>();
+            var applyResponse = await response.Content.ReadFromJsonAsync<Response>();
 
-            Console.WriteLine(result.Status.ToString());
+            Console.WriteLine(applyResponse.Status.ToString());
         }
     }
 }

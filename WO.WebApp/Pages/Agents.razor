@@ -1,0 +1,43 @@
+﻿@page "/agents"
+@using WO.Hub.Contract.Agent
+@inject HttpClient client
+
+<h3>Agents</h3>
+
+<ul>
+    @if(agents != null)
+    {
+        @foreach (var agent in agents)
+        {
+            <li>@agent.Hostname</li>
+        }
+    }
+</ul>
+
+@code {
+    private Agent[] agents;
+
+    protected async override Task OnInitializedAsync()
+    {
+        await FetchAgents();
+    }
+
+    private async Task FetchAgents()
+    {
+        try
+        {
+            var response = await client.GetFromJsonAsync<Agent[]>("/api/agent/list");
+
+            if(response != null)
+                agents = response.ToArray();
+        }
+        catch (Exception ex)
+        {
+
+        }
+        finally
+        {
+            
+        }
+    }
+}

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace WO.Hub.Contract;
+namespace WO.Hub.Contract.Orchestrator;
 
 [DataContract]
 public class ApplyRequest

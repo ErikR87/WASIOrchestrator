@@ -1,10 +1,7 @@
-using Grpc.Net.Client;
-using Grpc.Net.ClientFactory;
-using ProtoBuf.Grpc.Client;
 using ProtoBuf.Grpc.ClientFactory;
+using Wo.Agent.HubClient;
 using WO.Agent;
-using WO.Hub.Contract;
-
+using WO.Hub.Contract.Orchestrator;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
@@ -13,6 +10,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             o.Address = new Uri("https://localhost:11001/");
         });
+        services.AddHostedService<HubClient>();
         services.AddHostedService<Worker>();
     })
     .Build();

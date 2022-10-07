@@ -1,30 +1,20 @@
-using WO.Hub.Contract;
+namespace WO.Agent;
 
-namespace WO.Agent
+public class Worker : BackgroundService
 {
-    public class Worker : BackgroundService
+    private readonly ILogger<Worker> _logger;
+
+    public Worker(ILogger<Worker> logger)
     {
-        private readonly ILogger<Worker> _logger;
-        private readonly IOrchestratorService _orchestrator;
+        _logger = logger;
+    }
 
-        public Worker(ILogger<Worker> logger, IOrchestratorService orchestrator)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
         {
-            _logger = logger;
-            _orchestrator = orchestrator;
-        }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var result = await _orchestrator.ApplyAsync(new ApplyRequest
-                {
-                    Method = "Blub"
-                });
-                _logger.LogInformation(result.Status.ToString());
-                await Task.Delay(1000, stoppingToken);
-            }
+            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            await Task.Delay(1000, stoppingToken);
         }
     }
 }

@@ -1,6 +1,6 @@
 using ProtoBuf.Grpc.Server;
-using WO.Hub.Contract;
 using WO.Hub.Orchestrator;
+using WO.Hub.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 const string ALLOW_ALL = "AllowAll";
 
+builder.Services.AddLogging();
+
+builder.Services.AddControllers();
+
 builder.Services.AddCors(o => o.AddPolicy(ALLOW_ALL, builder => {
     builder.AllowAnyOrigin()
         .AllowAnyMethod()
@@ -17,17 +21,18 @@ builder.Services.AddCors(o => o.AddPolicy(ALLOW_ALL, builder => {
         .WithExposedHeaders("Grpc-Status", "Grpc-Message");
 }));
 
+builder.Services.AddSingleton<AgentService>();
+
 builder.Services.AddCodeFirstGrpc(config =>
 {
     config.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal;
 });
 
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
-app.UseGrpcWeb(new GrpcWebOptions
-{
-    DefaultEnabled = true,
-});
+app.UseGrpcWeb();
 
 app.UseCors(ALLOW_ALL);
 
@@ -36,14 +41,7 @@ app.MapGrpcService<OrchestratorService>()
     .EnableGrpcWeb()
     .RequireCors(ALLOW_ALL);
 
-app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
-
-app.MapPost("Orchestrator", (ApplyRequest request) =>
-{
-    return new Result
-    {
-        Status = 23
-    };
-});
+app.MapControllers();
+app.UseSwagger();
 
 await app.RunAsync();

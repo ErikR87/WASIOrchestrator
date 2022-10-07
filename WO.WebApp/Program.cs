@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using ProtoBuf.Grpc.Client;
 using ProtoBuf.Grpc.ClientFactory;
-using WO.Hub.Contract;
+using WO.Hub.Contract.Orchestrator;
 using WO.WebApp;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

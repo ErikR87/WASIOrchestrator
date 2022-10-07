@@ -13,7 +13,7 @@
 	<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-rc.1.22426.10" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
 	<PackageReference Include="protobuf-net.Grpc.ClientFactory" Version="1.0.177" />
-	<PackageReference Include="System.ServiceModel.Primitives" Version="4.5.03" />
+	<PackageReference Include="System.ServiceModel.Primitives" Version="4.10.0" />
   </ItemGroup>
 
   <ItemGroup>
