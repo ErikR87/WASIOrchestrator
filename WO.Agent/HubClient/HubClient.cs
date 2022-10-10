@@ -35,8 +35,13 @@ public class HubClient : BackgroundService
         {
             _logger.LogInformation($"Connecting to hub {_hubConfig.Url}...");
 
+            var agent = new WO.Hub.Contract.Agent.Agent
+            {
+                Hostname = Environment.MachineName
+            };
+
             _subscribtion = orchestratorService
-                .Subscribe()
+                .Subscribe(agent)
                 .WithCancellation(stoppingToken);
 
             await foreach(var r in _subscribtion)

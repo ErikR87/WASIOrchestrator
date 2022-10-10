@@ -28,40 +28,39 @@ public class OrchestratorService : IOrchestratorService
         return await Task.FromResult(result);
     }
 
-    public async IAsyncEnumerable<SubscribtionResponse> Subscribe(CallContext context = default)
+    public async IAsyncEnumerable<SubscribtionResponse> Subscribe(Agent agent, CallContext context = default)
     {
         Console.Write("Subscribe");
 
-        var host = context.ServerCallContext?.Host;
-
-        if (host == null)
-            throw new Exception("Hostname is missing");
-
         // register agent
-        var registerResponse = await agentService.RegisterAsync(host, new Agent(host));
+        var registerResponse = await agentService.RegisterAsync(agent.Hostname, agent);
+
+        if(registerResponse == null)
+        {
+            throw new NullReferenceException("Register response is null.");
+        }
 
         if(registerResponse.HasError)
         {
             throw new SubscribeException(registerResponse.ErrorText);
         }
 
-        var agent = registerResponse.GetEntity<Agent>();
-        logger.LogInformation(agent == null ? "nulllll" : agent.Hostname);
-        Console.WriteLine("register " + host);
+        var agentWithCommands = registerResponse.GetEntity<AgentWithCommands>();
+        Console.WriteLine("register " + agent.Hostname);
         
         while (context.ServerCallContext != null && !context.ServerCallContext.CancellationToken.IsCancellationRequested)
         {
             Console.WriteLine("subRun...");
-            Console.WriteLine(host);
-            Console.WriteLine(agent!.Commands.FirstOrDefault());
+            Console.WriteLine(agentWithCommands!.Hostname);
+            Console.WriteLine(agentWithCommands!.Commands.FirstOrDefault());
             
-            if (agent != null && agent.Commands.Any())
+            if (agentWithCommands != null && agentWithCommands.Commands.Any())
             {
                 string? command = null;
 
-                while(agent.Commands.TryDequeue(out command))
+                while(agentWithCommands.Commands.TryDequeue(out command))
                 {
-                    Console.Write("send to " + host);
+                    Console.Write("send to " + agentWithCommands.Hostname);
 
                     if (string.IsNullOrEmpty(command))
                     {
@@ -82,11 +81,11 @@ public class OrchestratorService : IOrchestratorService
             catch (Exception ex)
             {
                 Console.WriteLine("Unsubscribe - connection lost");
-                await agentService.UnregisterAsync(host);
+                await agentService.UnregisterAsync(agent.Hostname);
             }
         }
 
         Console.WriteLine("Unsubscribe");
-        await agentService.UnregisterAsync(host);
+        await agentService.UnregisterAsync(agent.Hostname);
     }
 }

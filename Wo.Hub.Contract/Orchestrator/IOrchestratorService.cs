@@ -1,5 +1,6 @@
 ﻿using ProtoBuf.Grpc;
 using System.ServiceModel;
+using WO.Hub.Contract.Agent;
 
 namespace WO.Hub.Contract.Orchestrator;
 
@@ -10,5 +11,5 @@ public interface IOrchestratorService
     public ValueTask<Response> ApplyAsync(ApplyRequest request);
 
     [OperationContract]
-    IAsyncEnumerable<SubscribtionResponse> Subscribe(CallContext context = default);
+    IAsyncEnumerable<SubscribtionResponse> Subscribe(Agent.Agent agent, CallContext context = default);
 }

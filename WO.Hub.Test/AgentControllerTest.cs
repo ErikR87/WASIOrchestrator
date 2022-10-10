@@ -12,7 +12,10 @@ namespace WO.Hub.Tests
         public async Task ListTest()
         {
             const string NAME = "Bob";
-            var agent = new Agent(NAME);
+            var agent = new Agent
+            {
+                Hostname = NAME
+            };
 
             var agentService = new AgentService();
             var registerResponse = await agentService.RegisterAsync(NAME, agent);
@@ -23,12 +26,10 @@ namespace WO.Hub.Tests
             }
 
             var controller = new AgentController(agentService);
-            var listResult = await controller.List();
+            var listResult = controller.List();
 
-
-            Console.WriteLine(listResult.ToString());
             Assert.IsNotNull(listResult, "Response is null");
-            Assert.Equals(1, listResult.Value.Length);
+            Assert.Equals(1, listResult.Result.Value.Length);
         } 
     }
 }

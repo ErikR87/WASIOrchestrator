@@ -5,7 +5,7 @@ namespace WO.Hub.Services;
 
 public class AgentService
 {
-    private readonly IDictionary<string, Agent> _agents = new Dictionary<string, Agent>();
+    private readonly IDictionary<string, AgentWithCommands> _agents = new Dictionary<string, AgentWithCommands>();
 
     public async ValueTask<Response> RegisterAsync(string hostname, Agent data)
     {
@@ -13,7 +13,10 @@ public class AgentService
 
         if(!_agents.ContainsKey(hostname)) 
         {
-            _agents[hostname] = data;
+            _agents[hostname] = new AgentWithCommands 
+            { 
+                Hostname = data.Hostname
+            };
             response.Status = ResultStatus.Success;
             response.AddEntity(data);
         } 
